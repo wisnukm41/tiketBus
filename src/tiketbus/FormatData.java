@@ -76,4 +76,15 @@ public class FormatData {
         String [] j = jam.split(":");
         return j[0]+":"+j[1];
     }
+    
+    public boolean harga(String harga){
+            try {
+                int h = Integer.parseInt(harga);
+                return !(h<0);
+             }
+             catch (NumberFormatException e)
+             {
+                return false;
+             }
+    }
 }

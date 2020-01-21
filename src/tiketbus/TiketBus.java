@@ -34,7 +34,7 @@ public class TiketBus {
                     pil =  menu.bus();                
                     break;
                 case "2":
-                    pil =  menu.destination();
+                    pil =  menu.trip();
                     break;
                 case "3":
                     System.out.println("Data Pemesan");

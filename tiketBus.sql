@@ -38,7 +38,7 @@ CREATE TABLE `t_perjalanan` (
   `harga` int(11) DEFAULT NULL,
   `makan` tinyint(1) DEFAULT NULL,
   `kode_bus` varchar(5) DEFAULT NULL,
-  `aktif` tinyint(1) DEFAULT NULL,
+  `aktif` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id_perjalanan`),
   KEY `FK` (`kode_bus`),
   CONSTRAINT `t_perjalanan_ibfk_1` FOREIGN KEY (`kode_bus`) REFERENCES `t_bus` (`kode_bus`)
@@ -56,7 +56,7 @@ CREATE TABLE `t_tiket` (
   `kode_bus` varchar(5) DEFAULT NULL,
   `no_seat` int(3) DEFAULT NULL,
   `kode_user` varchar(5) DEFAULT NULL,
-  `aktif` tinyint(1) DEFAULT NULL,
+  `aktif` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id_tiket`),
   KEY `FK` (`kode_user`),
   KEY `t_tiket_ibfk_1` (`kode_bus`),
@@ -74,7 +74,7 @@ CREATE TABLE `t_user` (
   `jenis_kelamin` char(1) DEFAULT NULL,
   `kontak` varchar(15) DEFAULT NULL,
   `promo` int(11) DEFAULT NULL,
-  `aktif` tinyint(1) DEFAULT NULL,
+  `aktif` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`kode_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

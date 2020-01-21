@@ -56,22 +56,23 @@ public class Menu {
         return "-1";
     }
       
-    public String destination(){
+    public String trip(){
+        
+        TripHandle trip = new TripHandle();
         
         String pil;
         
         do{ 
             display.clrscr();
             display.header();
-            display.menuDestination();
+            display.menuTrip();
             display.pilihan();
 
             pil = sc.nextLine();
 
             switch (pil) {
                 case "1":
-                    System.out.println("Tambah Perjalanan");
-                    sc.nextLine();                   
+                    trip.add();                 
                     break;
                 case "2":
                     System.out.println("Tampil Perjalanan");

@@ -40,12 +40,12 @@ public class BusHandle {
             jam = sc.nextLine();
             System.out.println("--------------------------------------------------------");
             if(!format.kodeBus(kode) || !format.seatBus(seat) || !format.jam(jam)){
-                System.out.println(" Kode Bus atau Jumlah Seat atau Jam Berangkat Tidak Sesuai!");
+                System.out.println(" Data yang Dimasukan Tidak Sesuai!");
                 sc.nextLine();
             } else {
                 String [] data = {kode,seat,jam};
                 if(db.insert(table, data)){
-                    System.out.println(" Penambahan Data Berhasil!");
+                    System.out.println(" Penambahan Data Bus Berhasil!");
                     sc.nextLine();
                 }else{
                     System.out.println("Terjadi Kesalahan Saat Penambahan Data");
@@ -248,7 +248,7 @@ public class BusHandle {
         sc.nextLine();
     }
     
-     public void searchHour(){
+    public void searchHour(){
         String min,max;
         display.clrscr();
         display.header();
@@ -278,7 +278,7 @@ public class BusHandle {
         sc.nextLine();
     }
      
-      public void delete(){
+    public void delete(){
         boolean done = false;
         while(!done){
             view();
@@ -303,5 +303,23 @@ public class BusHandle {
                 sc.nextLine();
             }
         }
+    }
+    
+    public void dataOnly(){
+        System.out.println("----------| DATA BUS |-------------");
+        System.out.println("| Kode Bus | Seat | Jam Berangkat |");
+        System.out.println("|----------|------|---------------|");
+        List<Map<String, Object>> data = db.select(table, "");
+        if(data.size()!=0){
+            for(int i = 0; i < data.size(); i++){
+                kode = data.get(i).get("kode_bus").toString();
+                seat = format.formatJmlhSeat(data.get(i).get("jmlh_seat").toString());
+                jam = data.get(i).get("jam_berangkat").toString();
+                System.out.println("|  "+kode +"   | "+ seat +"  |   "+ jam+"    |");
+            }
+        } else {
+            System.out.println("|-------| TIDAK ADA DATA |--------|");
+        }
+        System.out.println("-----------------------------------");
     }
 }

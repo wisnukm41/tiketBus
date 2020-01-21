@@ -45,7 +45,6 @@ public class Database {
                     pStatement.setString(i+2,"1");
                 }
             }
-            
             int intBaris = pStatement.executeUpdate();
             if(intBaris > 0){
                hasil = true;
@@ -57,6 +56,7 @@ public class Database {
             conn.close();
         } catch(SQLException e)
         {
+            //System.out.println(e);
             if(table == "t_bus"){
                 System.out.println("Kode Bus sudah ada!");
             }

@@ -53,7 +53,7 @@ public class Views {
         System.out.println("--------------------------------------------------------");
     }
     
-    public void menuDestination(){
+    public void menuTrip(){
         System.out.println("-------------------| MENU PERJALANAN |------------------");
         System.out.println(" 1. Tambah Perjalanan");
         System.out.println(" 2. Tampilkan Perjalanan");
