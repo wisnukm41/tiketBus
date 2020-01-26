@@ -56,7 +56,6 @@ public class Database {
             conn.close();
         } catch(SQLException e)
         {
-//            System.out.println(e);
             if(table == "t_bus"){
                 System.out.println("Kode Bus sudah ada!");
             }
@@ -134,7 +133,6 @@ public class Database {
         
         try
         {
-            //Class.forName("com.mysql.jdbc.Driver");   
             String urlValue = getUrlValue();
             
             Connection conn = DriverManager.getConnection(urlValue);
@@ -154,16 +152,14 @@ public class Database {
             pStatement.close();
             conn.close();
         } catch(SQLException e) {
-            System.out.println(e);
             if(table == "t_bus"){
-                System.out.println("Kode Bus sudah ada!");
+                System.out.println(" Kode Bus sudah ada!");
+            }
+            if(table == "t_perjalanan"){
+                System.out.println(" Kode Perjalanan sudah ada!");
             }
             hasil = false;
-        } 
-// catch (ClassNotFoundException e) {
-//            hasil = false;
-//        }
-        
+        }     
         return hasil;
     }
     
@@ -172,7 +168,6 @@ public class Database {
         
         try
         {
-            //Class.forName("com.mysql.jdbc.Driver");   
             String urlValue = getUrlValue();
             
             Connection conn = DriverManager.getConnection(urlValue);
@@ -191,11 +186,7 @@ public class Database {
         } catch(SQLException e)
         {
             hasil = false;
-        } 
-// catch (ClassNotFoundException e) {
-//            hasil = false;
-//        }
-        
+        }   
         return hasil;
     }
     
@@ -220,7 +211,7 @@ public class Database {
             return true;
         } catch(SQLException e)
             {
-                    return false;
+                return false;
             }    
         }
     
@@ -264,7 +255,7 @@ public class Database {
         if(bus > tiket){
             return true;
         } else {
-            System.out.println(" Maaf, Bus Dengan Kode Bus "+kodebus+" Pada Tanggal "+tgl+" Sudah Penuh!");
+            System.out.println(" Maaf, Bus Dengan Kode Bus '"+kodebus+"' Pada Tanggal "+tgl+" Sudah Penuh!");
             return false;
         }
        
