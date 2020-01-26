@@ -33,10 +33,10 @@ CREATE TABLE `t_bus` (
 DROP TABLE IF EXISTS `t_perjalanan`;
 
 CREATE TABLE `t_perjalanan` (
-  `id_perjalanan` int(5) NOT NULL AUTO_INCREMENT,
+  `id_perjalanan` varchar(5) NOT NULL,
   `tujuan` varchar(50) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
-  `makan` tinyint(1) DEFAULT NULL,
+  `makan` int(2) DEFAULT NULL,
   `kode_bus` varchar(5) DEFAULT NULL,
   `aktif` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id_perjalanan`),
@@ -49,33 +49,17 @@ CREATE TABLE `t_perjalanan` (
 DROP TABLE IF EXISTS `t_tiket`;
 
 CREATE TABLE `t_tiket` (
-  `id_tiket` int(5) NOT NULL AUTO_INCREMENT,
+  `id_tiket` varchar(9) NOT NULL,
+  `ktp` varchar(16) DEFAULT NULL,
+  `nama_pemesan` varchar(20) DEFAULT NULL,
   `tujuan` varchar(20) DEFAULT NULL,
   `tanggal_pemesanan` date DEFAULT NULL,
   `tanggal_berangkat` date DEFAULT NULL,
   `kode_bus` varchar(5) DEFAULT NULL,
-  `no_seat` int(3) DEFAULT NULL,
-  `kode_user` varchar(5) DEFAULT NULL,
   `aktif` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id_tiket`),
-  KEY `FK` (`kode_user`),
   KEY `t_tiket_ibfk_1` (`kode_bus`),
-  CONSTRAINT `t_tiket_ibfk_1` FOREIGN KEY (`kode_bus`) REFERENCES `t_bus` (`kode_bus`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `t_tiket_ibfk_2` FOREIGN KEY (`kode_user`) REFERENCES `t_user` (`kode_user`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Table structure for table `t_user` */
-
-DROP TABLE IF EXISTS `t_user`;
-
-CREATE TABLE `t_user` (
-  `kode_user` varchar(5) NOT NULL,
-  `nama` varchar(255) DEFAULT NULL,
-  `jenis_kelamin` char(1) DEFAULT NULL,
-  `kontak` varchar(15) DEFAULT NULL,
-  `promo` int(11) DEFAULT NULL,
-  `aktif` tinyint(1) DEFAULT 1,
-  PRIMARY KEY (`kode_user`)
+  CONSTRAINT `t_tiket_ibfk_1` FOREIGN KEY (`kode_bus`) REFERENCES `t_bus` (`kode_bus`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

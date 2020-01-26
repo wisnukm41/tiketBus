@@ -33,6 +33,7 @@ public class Menu {
                     break;
                 case "2":
                     bus.view();
+                    System.out.println("Tekan [Enter] Untuk Kembali...");
                     sc.nextLine();
                     break;
                 case "3":
@@ -75,20 +76,62 @@ public class Menu {
                     trip.add();                 
                     break;
                 case "2":
-                    System.out.println("Tampil Perjalanan");
+                    trip.view();
+                    System.out.println("Tekan [Enter] Untuk Kembali...");
                     sc.nextLine();
                     break;
                 case "3":
-                    System.out.println("Ubah Perjalanan");
-                    sc.nextLine();
+                    trip.update();
                     break;
                 case "4":
-                    System.out.println("Cari Perjalanan");
-                    sc.nextLine();
+                    trip.search();
                     break;
                 case "5":
-                    System.out.println("Hapus Perjalanan");
+                    trip.delete();
+                    break;
+                case "0":
+                    break;
+                default:
+                    System.out.println("Pilihan tidak Sesuai!");
                     sc.nextLine();
+                    break;
+            }
+        } while (!pil.equals("0"));
+        
+        return "-1";
+    }
+    
+    public String booking(){
+        
+        BookingHandle booking = new BookingHandle();
+        
+        String pil;
+        
+        do{ 
+            display.clrscr();
+            display.header();
+            display.menuBooking();
+            display.pilihan();
+
+            pil = sc.nextLine();
+
+            switch (pil) {
+                case "1":
+                    booking.add();                 
+                    break;
+                case "2":
+                    booking.view();
+                    System.out.println("Tekan [Enter] Untuk Kembali...");
+                    sc.nextLine();
+                    break;
+                case "3":
+                    booking.update();
+                    break;
+                case "4":
+                    booking.search();
+                    break;
+                case "5":
+                    booking.delete();
                     break;
                 case "0":
                     break;

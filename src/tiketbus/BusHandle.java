@@ -16,8 +16,7 @@ public class BusHandle {
     Database db = new Database();
     FormatData format = new FormatData();
     
-    private String pil;
-    private String kode,seat,jam;
+    private String pil,kode,seat,jam;
     private String table = "t_bus";
     
     public void add(){
@@ -75,8 +74,8 @@ public class BusHandle {
             for(int i = 0; i < data.size(); i++){
                 kode = data.get(i).get("kode_bus").toString();
                 seat = format.formatJmlhSeat(data.get(i).get("jmlh_seat").toString());
-                jam = data.get(i).get("jam_berangkat").toString();
-                System.out.println("|  "+kode +"   | "+ seat +"  |   "+ jam+"    |");
+                jam = format.formatJam(data.get(i).get("jam_berangkat").toString());
+                System.out.println("|  "+kode +"   | "+ seat +"  |     "+ jam+"     |");
             }
         } else {
             System.out.println("|-------| TIDAK ADA DATA |--------|");
@@ -130,16 +129,10 @@ public class BusHandle {
                             sc.nextLine();
                         } else {
                             boolean hasil;
-                            where = " WHERE `kode_bus`='"+pil+"'" ;
-                            if(!kode.equals(data.get(0).get("kode_bus").toString())){
-                                String[] uData = {kode,seat,jam};
-                                String[] col = {"kode_bus","jmlh_seat","jam_berangkat"};
-                                hasil = db.update(table, col, uData,where);
-                            } else {
-                                String[] uData = {seat,jam};
-                                String[] col = {"jmlh_seat","jam_berangkat"};
-                                hasil = db.update(table, col, uData,where);
-                            }
+                            where = " WHERE `kode_bus`='"+pil+"' AND `aktif`='1'" ;
+                            String[] uData = {kode,seat,jam};
+                            String[] col = {"kode_bus","jmlh_seat","jam_berangkat"};
+                            hasil = db.update(table, col, uData,where);
                             
                             if(hasil){
                                 System.out.println(" Data Berhasil Diubah!");
@@ -174,13 +167,13 @@ public class BusHandle {
 
             switch (pil) {
                 case "1":
-                    searchCode();              
+                    searchKode();              
                     break;
                 case "2":
                     searchSeat();
                     break;
                 case "3":
-                    searchHour();
+                    searchJam();
                     break;
                 case "0":
                     break;
@@ -192,7 +185,7 @@ public class BusHandle {
         } while (!pil.equals("0"));
     }
     
-    public void searchCode(){
+    public void searchKode(){
         String where;
         display.clrscr();
         display.header();
@@ -209,13 +202,14 @@ public class BusHandle {
             for(int i = 0; i < data.size(); i++){
                 kode = data.get(i).get("kode_bus").toString();
                 seat = format.formatJmlhSeat(data.get(i).get("jmlh_seat").toString());
-                jam = data.get(i).get("jam_berangkat").toString();
-                System.out.println("|  "+kode +"   | "+ seat +"  |   "+ jam+"    |");
+                jam = format.formatJam(data.get(i).get("jam_berangkat").toString());
+                System.out.println("|  "+kode +"   | "+ seat +"  |    "+ jam +"     |");
             }
         } else {
             System.out.println("|-------| TIDAK ADA DATA |--------|");
         }
         System.out.println("-----------------------------------");
+        System.out.println("Tekan [Enter] Untuk Kembali...");
         sc.nextLine();
     }
     
@@ -238,17 +232,18 @@ public class BusHandle {
             for(int i = 0; i < data.size(); i++){
                 kode = data.get(i).get("kode_bus").toString();
                 seat = format.formatJmlhSeat(data.get(i).get("jmlh_seat").toString());
-                jam = data.get(i).get("jam_berangkat").toString();
-                System.out.println("|  "+kode +"   | "+ seat +"  |   "+ jam+"    |");
+                jam = format.formatJam(data.get(i).get("jam_berangkat").toString());
+                System.out.println("|  "+kode +"   | "+ seat +"  |    "+ jam +"     |");
             }
         } else {
             System.out.println("|-------| TIDAK ADA DATA |--------|");
         }
         System.out.println("-----------------------------------");
+        System.out.println("Tekan [Enter] Untuk Kembali...");
         sc.nextLine();
     }
     
-    public void searchHour(){
+    public void searchJam(){
         String min,max;
         display.clrscr();
         display.header();
@@ -268,13 +263,14 @@ public class BusHandle {
             for(int i = 0; i < data.size(); i++){
                 kode = data.get(i).get("kode_bus").toString();
                 seat = format.formatJmlhSeat(data.get(i).get("jmlh_seat").toString());
-                jam = data.get(i).get("jam_berangkat").toString();
-                System.out.println("|  "+kode +"   | "+ seat +"  |   "+ jam+"    |");
+                jam = format.formatJam(data.get(i).get("jam_berangkat").toString());
+                System.out.println("|  "+kode +"   | "+ seat +"  |    "+ jam +"     |");
             }
         } else {
             System.out.println("|-------| TIDAK ADA DATA |--------|");
         }
         System.out.println("-----------------------------------");
+        System.out.println("Tekan [Enter] Untuk Kembali...");
         sc.nextLine();
     }
      
@@ -314,8 +310,8 @@ public class BusHandle {
             for(int i = 0; i < data.size(); i++){
                 kode = data.get(i).get("kode_bus").toString();
                 seat = format.formatJmlhSeat(data.get(i).get("jmlh_seat").toString());
-                jam = data.get(i).get("jam_berangkat").toString();
-                System.out.println("|  "+kode +"   | "+ seat +"  |   "+ jam+"    |");
+                jam = format.formatJam(data.get(i).get("jam_berangkat").toString());
+                System.out.println("|  "+kode +"   | "+ seat +"  |     "+ jam +"     |");
             }
         } else {
             System.out.println("|-------| TIDAK ADA DATA |--------|");

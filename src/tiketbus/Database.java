@@ -15,7 +15,7 @@ public class Database {
     StringBuffer sb = new StringBuffer();
     Scanner sc = new Scanner(System.in);
     String sql = "";
-     boolean hasil;
+    boolean hasil;
     
     public boolean insert(String table, String[] data){
         sql = sb.append("INSERT INTO `"+table+"` VALUES(").toString();
@@ -28,10 +28,9 @@ public class Database {
             }
         }
         sql = sb.append(");").toString();
-        
+        sb.setLength(0);
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");   
             String urlValue = getUrlValue();
             
             Connection conn = DriverManager.getConnection(urlValue);
@@ -45,25 +44,27 @@ public class Database {
                     pStatement.setString(i+2,"1");
                 }
             }
+            
             int intBaris = pStatement.executeUpdate();
             if(intBaris > 0){
                hasil = true;
             } else {
                hasil = false;
             }
-             
+            
             pStatement.close();
             conn.close();
         } catch(SQLException e)
         {
-            //System.out.println(e);
+//            System.out.println(e);
             if(table == "t_bus"){
                 System.out.println("Kode Bus sudah ada!");
             }
+            if(table == "t_perjalanan"){
+                System.out.println("Kode Perjalanan sudah ada!");
+            }
             hasil = false;
-        } catch (ClassNotFoundException e) {
-            hasil = false;
-        }
+        } 
         
         return hasil;
     }
@@ -75,8 +76,15 @@ public class Database {
         
         if(where == ""){
             sql="SELECT * FROM `"+table+"` WHERE `aktif`=1;";        
-        } else {
+        } else if(table=="t_perjalanan`,`t_bus"){
+            sql="SELECT DISTINCT * FROM `"+table+"` WHERE t_perjalanan.`aktif`=1 AND "+where+" ORDER BY `tujuan`;";    
+        } 
+        else {
             sql="SELECT * FROM `"+table+"` WHERE `aktif`=1 AND "+where+";";
+        }
+        
+        if(table == "counttiket"){
+            sql = "SELECT COUNT(*) AS tiket FROM `t_tiket`  WHERE `aktif`=1 AND "+ where;
         }
         
         try
@@ -122,6 +130,8 @@ public class Database {
         }
         
         sql = sb.append(where+";").toString();
+        sb.setLength(0);
+        
         try
         {
             //Class.forName("com.mysql.jdbc.Driver");   
@@ -143,8 +153,8 @@ public class Database {
             
             pStatement.close();
             conn.close();
-        } catch(SQLException e)
-        {
+        } catch(SQLException e) {
+            System.out.println(e);
             if(table == "t_bus"){
                 System.out.println("Kode Bus sudah ada!");
             }
@@ -197,4 +207,67 @@ public class Database {
         
         return "jdbc:mysql://"+host+"/"+db+"?user="+user+"&password="+pwd;
     }
+    
+    public boolean testKoneksi(){
+        try
+        {
+            String urlValue = getUrlValue();
+            
+            Connection conn = DriverManager.getConnection(urlValue);
+            PreparedStatement pStatement = null;
+            
+            pStatement = conn.prepareStatement(sql);
+            return true;
+        } catch(SQLException e)
+            {
+                    return false;
+            }    
+        }
+    
+        public String jamBerangkat(String kodebus){
+            
+             List<Map<String, Object>> data = select("t_bus", "kode_bus='"+kodebus+"'");
+            return data.get(0).get("jam_berangkat").toString();
+        }
+        
+        public String getTiket(){
+            
+            Random rnd = new Random();
+            int num;  
+            boolean b = true;
+            String tiket = "";
+            
+            while(b){
+                num = rnd.nextInt(9999999);
+                tiket = "B-"+String.format("%07d", num);; 
+                if(select("t_tiket", "id_tiket='"+tiket+"'").size() == 0 ){
+                    b = false;
+                }
+            }
+            
+            return tiket;
+        };
+        
+    public boolean fullBus(String kodebus, String tujuan, String tgl){
+        int bus=0,tiket=0;
+        List<Map<String, Object>> dataBus = select("t_bus", "`kode_bus`='"+kodebus+"'");
+        List<Map<String, Object>> dataTiket = select("counttiket", "`tujuan`='"+tujuan+"' AND `tanggal_berangkat`='"+tgl+"' AND `kode_bus`='"+kodebus+"'");
+        
+        String busSeat = dataBus.get(0).get("jmlh_seat").toString();
+        String tiketCount = dataTiket.get(0).get("tiket").toString();
+        
+        try{
+         bus = Integer.parseInt(busSeat);
+         tiket = Integer.parseInt(tiketCount);   
+        }catch (NumberFormatException e){}
+        
+        if(bus > tiket){
+            return true;
+        } else {
+            System.out.println(" Maaf, Bus Dengan Kode Bus "+kodebus+" Pada Tanggal "+tgl+" Sudah Penuh!");
+            return false;
+        }
+       
+    }
+    
 }
