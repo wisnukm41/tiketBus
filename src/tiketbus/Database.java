@@ -165,7 +165,6 @@ public class Database {
     
     public boolean delete(String table,String where, String key, String val){
         sql = "UPDATE `"+table+"` SET `aktif`=0 , `"+key+"`='"+val+"' WHERE aktif=1 AND "+where;
-        System.err.println(sql);
         try
         {
             String urlValue = getUrlValue();
@@ -184,9 +183,7 @@ public class Database {
             pStatement.close();
             conn.close();
         } catch(SQLException e)
-        {
-            System.out.println(e);
-            
+        {         
             hasil = false;
         }   
         return hasil;
