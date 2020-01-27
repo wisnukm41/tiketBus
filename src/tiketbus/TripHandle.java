@@ -8,6 +8,7 @@ package tiketbus;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  *
@@ -36,7 +37,7 @@ public class TripHandle {
             kode = "T-"+sc.nextLine();
             System.out.println(" Contoh Tujuan [ Bali ] Min 3, Max 15 Karakter");
             System.out.print(" Tujuan Perjalanan : ");
-            tujuan = sc.nextLine();
+            tujuan = WordUtils.capitalizeFully(sc.nextLine(),' ');
             System.out.println(" Contoh Harga [ 452000 ] Min 1000, Max 9999999");
             System.out.print(" Harga Perjalanan : Rp. ");
             harga = sc.nextLine();

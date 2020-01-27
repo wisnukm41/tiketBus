@@ -57,10 +57,10 @@ public class Database {
         } catch(SQLException e)
         {
             if(table == "t_bus"){
-                System.out.println("Kode Bus sudah ada!");
+                System.out.println(" Kode Bus sudah ada!");
             }
             if(table == "t_perjalanan"){
-                System.out.println("Kode Perjalanan sudah ada!");
+                System.out.println(" Kode Perjalanan sudah ada!");
             }
             hasil = false;
         } 
