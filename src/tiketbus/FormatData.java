@@ -21,8 +21,9 @@ import java.util.Random;
  */
 public class FormatData {
     static DateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd");
-    static DateFormat dayformat = new SimpleDateFormat("u/MM/yyyy");
     static DateFormat nowformat = new SimpleDateFormat("dd/MM/yyyy");
+    static DateFormat del = new SimpleDateFormat("'-deleted at' yyyy-MM-dd HH:mm:ss:SS");
+    
     Database db = new Database();
     
     StringBuffer sb = new StringBuffer();
@@ -261,4 +262,9 @@ public class FormatData {
     return t;
     }
     
+     
+     public String rawDate(){
+         Date now = new Date();
+         return del.format(now);
+     }
 }

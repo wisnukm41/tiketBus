@@ -163,9 +163,9 @@ public class Database {
         return hasil;
     }
     
-    public boolean delete(String table,String where){
-        sql = "UPDATE `"+table+"` SET `aktif`=0 WHERE aktif=1 AND "+where;
-        
+    public boolean delete(String table,String where, String key, String val){
+        sql = "UPDATE `"+table+"` SET `aktif`=0 , `"+key+"`='"+val+"' WHERE aktif=1 AND "+where;
+        System.err.println(sql);
         try
         {
             String urlValue = getUrlValue();
@@ -185,6 +185,8 @@ public class Database {
             conn.close();
         } catch(SQLException e)
         {
+            System.out.println(e);
+            
             hasil = false;
         }   
         return hasil;
@@ -258,7 +260,6 @@ public class Database {
             System.out.println(" Maaf, Bus Dengan Kode Bus '"+kodebus+"' Pada Tanggal "+tgl+" Sudah Penuh!");
             return false;
         }
-       
     }
     
 }

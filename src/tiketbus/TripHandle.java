@@ -389,7 +389,9 @@ public class TripHandle {
                 done = true;
             } else if(format.kodePerjalanan(pil)){
                 String where = "`id_perjalanan`='"+pil+"'" ;
-                if(db.delete(table, where)){
+                String key = "id_perjalanan";
+                String val = format.rawDate();
+                if(db.delete(table, where, key, val)){
                     System.out.println("----------------------------------");
                     System.out.println(" Data Perjalanan Berhasil Dihapus");
                     done = true;

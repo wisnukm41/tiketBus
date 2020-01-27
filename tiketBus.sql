@@ -21,7 +21,7 @@ USE `tiketbus`;
 DROP TABLE IF EXISTS `t_bus`;
 
 CREATE TABLE `t_bus` (
-  `kode_bus` varchar(5) NOT NULL,
+  `kode_bus` varchar(40) NOT NULL,
   `jmlh_seat` int(3) DEFAULT NULL,
   `jam_berangkat` time DEFAULT NULL,
   `aktif` tinyint(1) DEFAULT 1,
@@ -33,7 +33,7 @@ CREATE TABLE `t_bus` (
 DROP TABLE IF EXISTS `t_perjalanan`;
 
 CREATE TABLE `t_perjalanan` (
-  `id_perjalanan` varchar(5) NOT NULL,
+  `id_perjalanan` varchar(40) NOT NULL,
   `tujuan` varchar(50) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   `makan` int(2) DEFAULT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE `t_perjalanan` (
 DROP TABLE IF EXISTS `t_tiket`;
 
 CREATE TABLE `t_tiket` (
-  `id_tiket` varchar(9) NOT NULL,
+  `id_tiket` varchar(50) NOT NULL,
   `ktp` varchar(16) DEFAULT NULL,
   `nama_pemesan` varchar(20) DEFAULT NULL,
   `tujuan` varchar(20) DEFAULT NULL,

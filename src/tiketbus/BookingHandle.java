@@ -479,7 +479,10 @@ public class BookingHandle {
                         done = true;
                     }else {
                         where = "`id_tiket`='"+id_tiket+"'" ;
-                        if(db.delete(table, where)){
+                        String key = "id_tiket";
+                        String val = format.rawDate();
+                        
+                        if(db.delete(table, where, key, val)){
                             System.out.println("-----------------------------------------------------");
                             System.out.println(" Data Perjalanan Berhasil Dihapus");
                             done = true;
